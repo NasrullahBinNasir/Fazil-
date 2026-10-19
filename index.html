@@ -423,9 +423,20 @@ o.addEventListener('mousedown',e=>{if(e.target.closest('button'))return;st(e.cli
 o.addEventListener('mouseup',e=>en(e.clientX,e.clientY,1))}
 if(fresh){const R2=Math.hypot(innerWidth,innerHeight)*1.1,c=`${tx}px ${ty}px`;o.animate([{clipPath:`circle(0px at ${c})`},{clipPath:`circle(${R2}px at ${c})`}],{duration:600,easing:'cubic-bezier(.2,.7,.2,1)'})}}
 function route(){closeDt();CS=null;AC=/^(#\/?|#\/g\/\d+)?$/.test(location.hash)?0:(TM[location.hash||'#/']||0);setAc();const p=location.hash.split('/');kw=pk;pk='';cat=-1;window.scrollTo(0,0);const dk=p[1]==='s'&&p[3]!==undefined&&decodeURIComponent(p[3])==='ক';document.body.classList.toggle('hid',!dk);document.body.classList.toggle('alw',dk);
-if(p[1]==='r')rev(p[2]===undefined?null:+p[2]);else if(p[1]==='g'&&G[+p[2]])grp(+p[2],p[3]===undefined?undefined:+p[3]);else if(p[1]==='s'&&S[+p[2]]){p[3]&&S[+p[2]].d[decodeURIComponent(p[3])]?div(+p[2],decodeURIComponent(p[3])):subj(+p[2])}else grp(0)}
+if(p[1]==='admin')admin();else if(p[1]==='r')rev(p[2]===undefined?null:+p[2]);else if(p[1]==='g'&&G[+p[2]])grp(+p[2],p[3]===undefined?undefined:+p[3]);else if(p[1]==='s'&&S[+p[2]]){p[3]&&S[+p[2]].d[decodeURIComponent(p[3])]?div(+p[2],decodeURIComponent(p[3])):subj(+p[2])}else grp(0)}
 const HWA=`<div class="hw"><a href="https://chat.whatsapp.com/I1TN5ulePKD6A2nerUCtR4" target="_blank" rel="noopener"><span><b>সাজেশন পেতে যুক্ত হন</b></span><i><svg viewBox="0 0 24 24" width="24" height="24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c2.3.9 2.3.6 2.7.6a2.3 2.3 0 0 0 1.5-1.1 1.9 1.9 0 0 0 .1-1.1c-.1-.1-.2-.2-.4-.3z"/></svg></i></a></div>`;
-const FI=['📚','📜','🧭'],fl=g=>{const ic={};g.lv.forEach((l,x)=>l.ids.forEach(i=>ic[i]=FI[x]||'📘'));const ids=[...gids(g)].sort((a,b)=>rk(a)-rk(b));return '<div class="list">'+ids.map((i,x)=>{const s=S[i],done=s.ex&&exst(s.ex)==='d',open=i===7&&!done,tag=done?'<em class="ex done">✓ সম্পন্ন</em>':(s.ex?exc(s.ex):'')+(open?'':'<em>⏳ প্রশ্ন শীঘ্রই আসছে</em>');return `<button class="tile sub" style="--c:${s.c};--i:${x};${open?'':'cursor:default'}" onclick="${open?`location.hash='#/s/${i}'`:(done?'':`toast('প্রশ্ন শীঘ্রই আসছে')`)}"><div class="ic">${ic[i]}</div><div class="mid"><b>${s.n}</b><div class="tg">${tag}</div></div>${open?'<span class="ch">›</span>':''}</button>`}).join('')+'</div>'};
+let OPEN=new Set(ld('f3hopen',[7]));
+window.setOpen=a=>{const n=new Set(a.map(Number));if(n.size===OPEN.size&&[...n].every(x=>OPEN.has(x)))return;OPEN=n;sv('f3hopen',[...OPEN]);const h=location.hash;if(h==='#/admin')admin();else if(!h||h==='#/'||/^#\/g\/\d+$/.test(h))route()};
+const FI=['📚','📜','🧭'],fl=g=>{const ic={};g.lv.forEach((l,x)=>l.ids.forEach(i=>ic[i]=FI[x]||'📘'));const ids=[...gids(g)].sort((a,b)=>rk(a)-rk(b));return '<div class="list">'+ids.map((i,x)=>{const s=S[i],done=s.ex&&exst(s.ex)==='d',open=OPEN.has(i)&&!done,tag=done?'<em class="ex done">✓ সম্পন্ন</em>':(s.ex?exc(s.ex):'')+(open?'':'<em>⏳ প্রশ্ন শীঘ্রই আসছে</em>');return `<button class="tile sub" style="--c:${s.c};--i:${x};${open?'':'cursor:default'}" onclick="${open?`location.hash='#/s/${i}'`:(done?'':`toast('প্রশ্ন শীঘ্রই আসছে')`)}"><div class="ic">${ic[i]}</div><div class="mid"><b>${s.n}</b><div class="tg">${tag}</div></div>${open?'<span class="ch">›</span>':''}</button>`}).join('')+'</div>'};
+function admin(){head('এডমিন প্যানেল','কোন পত্র খোলা থাকবে ঠিক করুন','#/');$('nv').innerHTML='';const m=$('m'),F=window.FB,btn='padding:8px 18px;height:auto';
+if(!F||!F.ok){m.innerHTML='<div class="empty">Firebase সংযোগ নেই।<br>সেটআপ শেষ হলে এখানে এডমিন প্যানেল আসবে।</div>';return}
+if(!F.user){m.innerHTML='<div style="text-align:center;padding:30px"><button class="zb" id="gl" style="padding:12px 22px;font-size:17px;height:auto">Google দিয়ে লগইন</button></div>';$('gl').onclick=()=>F.signIn().catch(()=>toast('লগইন হয়নি'));return}
+if((F.user.email||'').toLowerCase()!==F.admin.toLowerCase()){m.innerHTML='<div class="empty">এই অ্যাকাউন্টের এডমিন অনুমতি নেই।<br><small>'+F.user.email+'</small><br><br><button class="zb" id="lo" style="'+btn+'">লগআউট</button></div>';$('lo').onclick=()=>F.signOut();return}
+const ids=[...gids(G[0])].sort((a,b)=>rk(a)-rk(b));
+m.innerHTML='<div class="list">'+ids.map(i=>{const on=OPEN.has(i);return `<button class="tile sub" data-i="${i}" style="--c:${S[i].c}"><div class="ic">${on?'✅':'🔒'}</div><div class="mid"><b>${S[i].n}</b><div class="tg"><em>${on?'খোলা':'শীঘ্রই আসছে'}</em>${S[i].ex?exc(S[i].ex):''}</div></div></button>`}).join('')+'</div><div style="text-align:center;margin-top:18px"><button class="zb" id="lo" style="'+btn+'">লগআউট</button></div>';
+m.querySelectorAll('.tile').forEach(b=>b.onclick=()=>{const i=+b.dataset.i,n=new Set(OPEN);n.has(i)?n.delete(i):n.add(i);F.save([...n]).then(()=>toast('সেভ হয়েছে')).catch(()=>toast('সেভ হয়নি — অনুমতি/নেট দেখুন'))});
+$('lo').onclick=()=>F.signOut()}
+addEventListener('fbstate',()=>{if(location.hash==='#/admin')admin()});
 let tx=innerWidth/2,ty=180;
 addEventListener('pointerdown',e=>{tx=e.clientX;ty=e.clientY;const b=e.target.closest('.tile,.chip,.zb,.tb,.tc');if(!b)return;const r=b.getBoundingClientRect(),z=Math.max(r.width,r.height)*2,p=document.createElement('span');p.className='rp';p.style.cssText=`width:${z}px;height:${z}px;left:${e.clientX-r.left-z/2}px;top:${e.clientY-r.top-z/2}px`;b.appendChild(p);setTimeout(()=>p.remove(),650)});
 const wv=()=>{const R2=Math.hypot(innerWidth,innerHeight)*1.1;[$('hd'),$('m'),$('nv')].forEach(el=>{if(!el||!el.firstChild)return;const r=el.getBoundingClientRect(),c=`${tx-r.left}px ${ty-r.top}px`;el.animate([{clipPath:`circle(0px at ${c})`},{clipPath:`circle(${R2}px at ${c})`}],{duration:700,easing:'cubic-bezier(.2,.7,.2,1)'})})};
@@ -455,5 +466,18 @@ const wf=()=>{const w=$('wafl');if(w){const p=location.hash.split('/');w.style.d
     wasInside=nowInside;
   });
 })();
+</script>
+<script type="module">
+const CFG={apiKey:"AIzaSyC6fzUyqtaDurs4DgHSz4ocrKRv7AMDhJE",authDomain:"fazil-exam-2026.firebaseapp.com",projectId:"fazil-exam-2026",storageBucket:"fazil-exam-2026.firebasestorage.app",messagingSenderId:"468101640640",appId:"1:468101640640:web:1eaf7facf1a652adf4d825"};
+const ADMIN="mdnasrullah.org@gmail.com";
+if(CFG){try{
+const V='10.14.1',B='https://www.gstatic.com/firebasejs/'+V+'/';
+const A=await import(B+'firebase-app.js'),F=await import(B+'firebase-firestore.js'),U=await import(B+'firebase-auth.js');
+const app=A.initializeApp(CFG),db=F.getFirestore(app),auth=U.getAuth(app),ref=F.doc(db,'config','papers');
+window.FB={ok:true,admin:ADMIN,user:null,signIn:()=>U.signInWithPopup(auth,new U.GoogleAuthProvider()),signOut:()=>U.signOut(auth),save:a=>F.setDoc(ref,{open:a,updated:Date.now()})};
+U.onAuthStateChanged(auth,u=>{window.FB.user=u;dispatchEvent(new Event('fbstate'))});
+F.onSnapshot(ref,sn=>{if(sn.exists()&&Array.isArray(sn.data().open))window.setOpen(sn.data().open)},e=>console.warn(e));
+dispatchEvent(new Event('fbstate'))
+}catch(e){console.warn('firebase',e)}}
 </script>
 </body></html>
